@@ -13,6 +13,7 @@ func init() {
 
 func main() {
 	orm.Debug = true
+	// create default database if it not existed.
 	orm.RunSyncdb("default", false, true)
 
 	beego.Router("/", &controllers.MainController{})
