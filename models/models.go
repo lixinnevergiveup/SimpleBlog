@@ -40,13 +40,34 @@ type Topic struct {
 }
 
 func RegisterDB() {
+	// 检查数据库文件
 	if !com.IsExist(_DB_NAME) {
 		os.MkdirAll(path.Dir(_DB_NAME), os.ModePerm)
 		os.Create(_DB_NAME)
 	}
 
+	// 注册模型
 	orm.RegisterModel(new(Category), new(Topic))
+	// 注册驱动("sqlite3"属于默认注册，此处代码可省略)
 	orm.RegisterDriver(_SQLITE3_DRIVER, orm.DRSqlite)
+	// 注册默认数据库
 	orm.RegisterDataBase("default", _SQLITE3_DRIVER, _DB_NAME, 10)
 
+}
+
+func AddCategory(name string) error {
+	o := orm.NewOrm()
+	cate := &Category{Title: name}
+
+	qs := o.QueryTable("category")
+	err := qs.Filter("title", name).One(cate)
+	if err != nil {
+		return err
+	}
+
+	_, err = o.Insert(cate)
+	if err != nil {
+		return err
+	}
+	return nil
 }
