@@ -18,9 +18,9 @@ const (
 type Category struct {
 	Id              int64
 	Title           string
-	Created         time.Time `orm:"index"`
+	Created         time.Time `orm:"index;auto_now_add"`
 	Views           int64     `orm:"index"`
-	TopicTime       time.Time `orm:"index"`
+	TopicTime       time.Time `orm:"index;auto_now"`
 	TopicCount      int64
 	TopicLastUserId int64
 }
@@ -31,11 +31,11 @@ type Topic struct {
 	Title           string
 	Content         string `orm:"size(5000)"`
 	Attachment      string
-	Created         time.Time `orm:"index"`
-	Updated         time.Time `orm:"index"`
+	Created         time.Time `orm:"index;auto_now_add"`
+	Updated         time.Time `orm:"index;auto_now"`
 	Views           int64     `orm:"index"`
 	Author          string
-	ReplyTime       time.Time `orm:"index"`
+	ReplyTime       time.Time `orm:"index;auto_now"`
 	ReplyCount      int64
 	ReplyLastUserId int64
 }

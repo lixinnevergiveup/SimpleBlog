@@ -1,0 +1,41 @@
+{{template "header"}}
+<title>文章 - my blog</title>
+
+<style>
+    body { padding-top: 70px; }
+</style>
+</head>
+<body>
+<div class="navbar navbar-default navbar-fixed-top">
+    <div class="container">
+        {{template "navbar" .}}
+    </div>
+</div>
+<div class="container">
+    <h1>文章列表</h1>
+    <table class="table table-striped">
+        <thead>
+        <tr>
+            <th>#</th>
+            <th>文章名称</th>
+            <th>最后更新</th>
+            <th>浏览</th>
+            <th>回复数</th>
+        </tr>
+        </thead>
+        <tbody>
+        {{range .Topics}}
+            <th>{{.Id}}</th>
+            <th>{{.Title}}</th>
+            <th>{{.Updated}}</th>
+            <th>{{.Views}}</th>
+            <th>{{.ReplyCount}}</th>
+            <th><a href="/category?op=del&id={{.Id}}">删除</a></th>
+        {{end}}
+        </tbody>
+    </table>
+</div>
+
+
+</body>
+</html>
