@@ -62,14 +62,27 @@ func AddCategory(name string) error {
 
 	qs := o.QueryTable("category")
 	err := qs.Filter("title", name).One(cate)
-	if err != nil {
+	if err == nil {
 		return err
 	}
 
+	cate.Created = time.Now()
+	cate.TopicTime = time.Now()
 	_, err = o.Insert(cate)
 	if err != nil {
 		return err
 	}
 
 	return nil
+}
+
+func GetAllCategories() ([]*Category, error) {
+	o := orm.NewOrm()
+
+	cates := make([]*Category, 0)
+
+	qs := o.QueryTable("category")
+	_, err := qs.All(&cates)
+
+	return cates, err
 }

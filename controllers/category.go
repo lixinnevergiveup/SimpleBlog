@@ -35,4 +35,11 @@ func (c *CategoryController) Get() {
 
 	c.Data["IsCategory"] = true
 	c.TplName = "category.html"
+
+	var err error
+	c.Data["Categories"], err = models.GetAllCategories()
+
+	if err != nil {
+		logs.Error(err)
+	}
 }
