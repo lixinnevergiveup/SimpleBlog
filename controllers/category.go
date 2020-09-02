@@ -22,14 +22,23 @@ func (c *CategoryController) Get() {
 		if err != nil {
 			logs.Error(err)
 		}
+
 		c.Redirect("/category", 301)
 		return
 
 	case "del":
-		name := c.Input().Get("id")
-		if len(name) == 0 {
+		id := c.Input().Get("id")
+		if len(id) == 0 {
 			break
 		}
+
+		err := models.DelCategory(id)
+		if err != nil {
+			logs.Error(err)
+		}
+
+		c.Redirect("/category", 301)
+		return
 
 	}
 

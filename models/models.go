@@ -6,6 +6,7 @@ import (
 	"github.com/unknwon/com"
 	"os"
 	"path"
+	"strconv"
 	"time"
 )
 
@@ -74,6 +75,20 @@ func AddCategory(name string) error {
 	}
 
 	return nil
+}
+
+func DelCategory(id string) error {
+	cid, err := strconv.ParseInt(id, 10, 64)
+	if err != nil {
+		return err
+	}
+
+	o := orm.NewOrm()
+
+	cate := &Category{Id: cid}
+	_, err = o.Delete(cate)
+
+	return err
 }
 
 func GetAllCategories() ([]*Category, error) {
