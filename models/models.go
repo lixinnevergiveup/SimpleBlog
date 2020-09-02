@@ -57,6 +57,7 @@ func RegisterDB() {
 
 func AddCategory(name string) error {
 	o := orm.NewOrm()
+
 	cate := &Category{Title: name}
 
 	qs := o.QueryTable("category")
@@ -69,5 +70,6 @@ func AddCategory(name string) error {
 	if err != nil {
 		return err
 	}
+
 	return nil
 }
