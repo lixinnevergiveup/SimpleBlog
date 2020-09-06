@@ -10,3 +10,7 @@ func (c *TopicController) Get() {
 	c.Data["IsTopic"] = true
 	c.TplName = "topic.html"
 }
+
+func (c *TopicController) Add() {
+	c.TplName = "topic_add.html"
+}
