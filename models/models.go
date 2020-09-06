@@ -11,8 +11,8 @@ import (
 )
 
 const (
-	_DB_NAME        = "data/beeblog.db"
-	_SQLITE3_DRIVER = "sqlite3"
+	dbName        = "data/beeblog.db"
+	sqlite3Driver = "sqlite3"
 )
 
 type Category struct {
@@ -42,17 +42,17 @@ type Topic struct {
 
 func RegisterDB() {
 	// 检查数据库文件
-	if !com.IsExist(_DB_NAME) {
-		os.MkdirAll(path.Dir(_DB_NAME), os.ModePerm)
-		os.Create(_DB_NAME)
+	if !com.IsExist(dbName) {
+		os.MkdirAll(path.Dir(dbName), os.ModePerm)
+		os.Create(dbName)
 	}
 
 	// 注册模型
 	orm.RegisterModel(new(Category), new(Topic))
 	// 注册驱动("sqlite3"属于默认注册，此处代码可省略)
-	orm.RegisterDriver(_SQLITE3_DRIVER, orm.DRSqlite)
+	orm.RegisterDriver(sqlite3Driver, orm.DRSqlite)
 	// 注册默认数据库
-	orm.RegisterDataBase("default", _SQLITE3_DRIVER, _DB_NAME, 10)
+	orm.RegisterDataBase("default", sqlite3Driver, dbName, 10)
 
 }
 
@@ -100,4 +100,33 @@ func GetAllCategories() ([]*Category, error) {
 	_, err := qs.All(&cates)
 
 	return cates, err
+}
+
+func AddTopic(title, content string) error {
+	o := orm.NewOrm()
+
+	topic := &Topic{
+		Title:   title,
+		Content: content,
+	}
+
+	_, err := o.Insert(topic)
+
+	return err
+}
+
+func GetAllTopics(isDesc bool) ([]*Topic, error) {
+	o := orm.NewOrm()
+
+	topics := make([]*Topic, 0)
+
+	qs := o.QueryTable("topic")
+	if isDesc {
+
+	} else {
+		_, err := qs.All(&topics)
+
+	}
+
+	return topics, err
 }
