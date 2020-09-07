@@ -26,12 +26,13 @@
         </thead>
         <tbody>
         {{range .Topics}}
-            <th>{{.Id}}</th>
-            <th>{{.Title}}</th>
-            <th>{{.Updated}}</th>
-            <th>{{.Views}}</th>
-            <th>{{.ReplyCount}}</th>
-            <th><a href="/category?op=del&id={{.Id}}">删除</a></th>
+            <tr>
+                <th>{{.Id}}</th>
+                <th>{{.Title}}</th>
+                <th>{{dateformat .Updated "2006-01-02 15:04:05"}}</th>
+                <th>{{.Views}}</th>
+                <th>{{.ReplyCount}}</th>
+            </tr>
         {{end}}
         </tbody>
     </table>
