@@ -56,6 +56,19 @@ func (c *TopicController) Modify() {
 	c.Data["Tid"] = tid
 }
 
+func (c *TopicController) Delete() {
+	if !checkAccount(c.Ctx) {
+		c.Redirect("/", 302)
+		return
+	}
+
+	err := models.DeleteTopic(c.Ctx.Input.Param("0"))
+	if err != nil {
+		logs.Error(err)
+	}
+	c.Redirect("/", 302)
+}
+
 func (c *TopicController) Post() {
 	res := checkAccount(c.Ctx)
 	logs.Info(res)
