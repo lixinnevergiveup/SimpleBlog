@@ -2,7 +2,6 @@ package controllers
 
 import (
 	"SimpleBlog/models"
-	"fmt"
 	"github.com/astaxie/beego"
 	"github.com/astaxie/beego/logs"
 )
@@ -80,7 +79,6 @@ func (c *TopicController) Post() {
 	title := c.Input().Get("title")
 	content := c.Input().Get("content")
 	tid := c.Input().Get("tid")
-	logs.Info(fmt.Sprintf("%v==================", tid))
 
 	var err error
 	if len(tid) == 0 {
